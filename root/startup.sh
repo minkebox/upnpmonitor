@@ -3,7 +3,9 @@
 touch /tmp/alltime /tmp/active
 update() {
   raw="$(upnpc -L | grep -E '(UDP|TCP)')"
-  if [ "${raw}" != "" ]; then
+  if [ "${raw}" = "" ]; then
+    cp /dev/null /tmp/active
+  else
     echo "${raw}" | while read map; do
       split=($map)
       #idx=${split[0]}
@@ -18,11 +20,11 @@ update() {
       #timeout=${split[5]}
       echo ${fport} [\"${fport}/${protocol}\",\"${ip}\",\"${tport}\",\"${note}\"]
     done > /tmp/active
-    cat /tmp/alltime /tmp/active | sort -g | uniq > /tmp/alltime.new
-    cp /tmp/alltime.new /tmp/alltime
-    echo [$(cat /tmp/active | sort -g | sed "s/^[ 0-9]* //" | paste -s -d",")] > /tmp/active.display
-    echo [$(cat /tmp/alltime | sort -g | sed "s/^[ 0-9]* //" | paste -s -d",")] > /tmp/alltime.display
   fi
+  cat /tmp/alltime /tmp/active | sort -g | uniq > /tmp/alltime.new
+  cp /tmp/alltime.new /tmp/alltime
+  echo [$(cat /tmp/active | sort -g | sed "s/^[ 0-9]* //" | paste -s -d",")] > /tmp/active.display
+  echo [$(cat /tmp/alltime | sort -g | sed "s/^[ 0-9]* //" | paste -s -d",")] > /tmp/alltime.display
 }
 
 trap "echo 'Terminating'; killall sleep upnpc; exit" TERM
