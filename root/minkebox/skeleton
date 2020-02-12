@@ -1,0 +1,57 @@
+{
+  name: `UPnP Monitor`,
+  description: `Monitor the open UPnP ports on your firewall.`,
+  image: `registry.minkebox.net/minkebox/upnpmonitor`,
+  tags: [ 'Networking' ],
+  actions: [
+    {
+      type: `Header`,
+      title: `Active Ports`
+    },
+    {
+      type: `File`,
+      name: `/tmp/active.display`,
+      description: `Ports`,
+      style: `RTable`,
+      headers: [
+        { name: `Firewall Port` },
+        { name: `Target Address` },
+        { name: `Target Port` },
+        { name: `Note` }
+      ]
+    },
+    {
+      type: `Header`,
+      title: `All Time Ports`
+    },
+    {
+      type: `File`,
+      name: `/tmp/alltime.display`,
+      description: `Ports`,
+      style: `RTable`,
+      headers: [
+        { name: `Firewall Port` },
+        { name: `Target Address` },
+        { name: `Target Port` },
+        { name: `Note` }
+      ]
+    }
+  ],
+  properties: [
+    {
+      type: `File`,
+      name: `/tmp/active.display`,
+      style: 'boot'
+    },
+    {
+      type: `File`,
+      name: `/tmp/alltime.display`,
+      style: 'boot'
+    },
+    {
+      type: `Network`,
+      name: `primary`,
+      defaultValue: `host`
+    }
+  ]
+}
