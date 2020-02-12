@@ -67,5 +67,28 @@
       name: `primary`,
       defaultValue: `home`
     }
-  ]
+  ],
+  monitor: {
+    cmd: `wc -l /tmp/active /tmp/alltime | sed "s/^ *\\([0-9]*\\).*$/\\1/" | head -n2`,
+    polling: 60,
+    parser: `
+      let i = input.split('\\n');
+      output.active = i[0];
+      output.alltime = i[1];
+    `,
+    minwidth: `150px`,
+    header: `
+      <style>
+        .up-o { display: inline-block; width: 200px; padding-top: 20px; float: right; }
+        .up-b { color: grey; text-align: right; padding: 0 5px 10px 0; font-size: 12px; }
+        .up-r { display: inline-block; font-size: 24px; color: black; }
+      </style>
+    `,
+    template: `
+      <div class="up-o">
+        <div class="up-b"><div class="up-r">{{active}}</div><div>Active Ports</div></div>
+        <div class="up-b"><div class="up-r">{{alltime}}</div><div>All Time Ports</div></div>
+      </div>
+    `
+  }
 }
