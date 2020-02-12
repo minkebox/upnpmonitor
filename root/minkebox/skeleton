@@ -27,7 +27,7 @@
     {
       type: `File`,
       name: `/tmp/alltime.display`,
-      description: `Any port that has ever been active on the firewall`,
+      description: `Any port that has been active on the firewall`,
       style: `RTable`,
       headers: [
         { name: `Firewall Port` },
