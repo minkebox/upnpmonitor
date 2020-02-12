@@ -13,10 +13,10 @@ update() {
     target="${mapping#*->}"
     ip="${target%%:*}"
     tport="${target#*:}"
-    tag=${split[3]}
+    tag=$(echo ${split[3]} | sed "s/^'\(.*\)'$/\1/")
     #blank=${split[4]}
-    timeout=${split[5]}
-    echo ${fport} [\'${fport}/${protocol}\',\'${ip}\',\'${tport}\',${tag}]
+    #timeout=${split[5]}
+    echo ${fport} ["${fport}/${protocol}","${ip}","${tport}","${tag}"]
   done > /tmp/active
   cat /tmp/alltime /tmp/active | sort -g | uniq > /tmp/alltime.new
   cp /tmp/alltime.new /tmp/alltime
