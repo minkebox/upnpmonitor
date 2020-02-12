@@ -25,7 +25,10 @@ update() {
   fi
 }
 
+trap "echo 'Terminating'; killall sleep upnpc; exit" TERM
+
 while true; do
   update
-  sleep 60
+  sleep 60 &
+  wait "$!"
 done
