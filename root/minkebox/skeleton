@@ -11,7 +11,7 @@
     {
       type: `File`,
       name: `/tmp/active.display`,
-      description: `Ports`,
+      description: `Ports currently active on the firewall`,
       style: `RTable`,
       headers: [
         { name: `Firewall Port` },
@@ -27,7 +27,7 @@
     {
       type: `File`,
       name: `/tmp/alltime.display`,
-      description: `Ports`,
+      description: `Any port that has ever been active on the firewall`,
       style: `RTable`,
       headers: [
         { name: `Firewall Port` },
@@ -35,6 +35,20 @@
         { name: `Target Port` },
         { name: `Note` }
       ]
+    },
+    {
+      type: `Header`,
+      title: `Network`,
+      visible: `property.Advanced`
+    },
+    {
+      type: `Text`,
+      text: `Select which network this application will use. You probably want <b>home</b> unless this application is being used on a private network.`
+    },
+    {
+      type: `Network`,
+      name: `primary`,
+      description: `Select network`
     }
   ],
   properties: [
@@ -51,7 +65,7 @@
     {
       type: `Network`,
       name: `primary`,
-      defaultValue: `host`
+      defaultValue: `home`
     }
   ]
 }
