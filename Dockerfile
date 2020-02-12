@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add miniupnc
+RUN apk add miniupnpc
 
 COPY root/ /
 
