@@ -14,11 +14,15 @@ update() {
       fport="${mapping%%->*}"
       target="${mapping#*->}"
       ip="${target%%:*}"
+      hostname=$(nslookup ${ip} | grep name | sed "s/^.*name = \(.*\)$/\1/")
+      if [ "${hostname}" = "" ]; then
+        hostname=${ip}
+      fi
       tport="${target#*:}"
       note=$(echo ${split[@]:3:$(expr ${#split[@]}-5)} | sed "s/^'\(.*\)'$/\1/")
       #blank=${split[4]}
       #timeout=${split[5]}
-      echo ${fport} [\"${fport}/${protocol}\",\"${ip}\",\"${tport}\",\"${note}\"]
+      echo ${fport} [\"${fport}/${protocol}\",\"${hostname}\",\"${tport}\",\"${note}\"]
     done > /tmp/active
   fi
   cat /tmp/alltime /tmp/active | sort -g | uniq > /tmp/alltime.new
