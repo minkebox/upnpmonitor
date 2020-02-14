@@ -27,8 +27,9 @@ update() {
   fi
   cat /tmp/alltime /tmp/active | sort -g | uniq > /tmp/alltime.new
   cp /tmp/alltime.new /tmp/alltime
+  cat /tmp/alltime /tmp/active | sort | uniq -u > /tmp/inactive
   echo [$(cat /tmp/active | sort -g | sed "s/^[ 0-9]* //" | paste -s -d",")] > /tmp/active.display
-  echo [$(cat /tmp/alltime | sort -g | sed "s/^[ 0-9]* //" | paste -s -d",")] > /tmp/alltime.display
+  echo [$(cat /tmp/inactive | sort -g | sed "s/^[ 0-9]* //" | paste -s -d",")] > /tmp/inactive.display
 }
 
 trap "echo 'Terminating'; killall sleep upnpc; exit" TERM
