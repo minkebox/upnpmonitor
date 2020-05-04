@@ -37,12 +37,12 @@ update() {
   echo "$(cat /tmp/inactive)" | while read map; do
     if [ "$map" != "" ]; then
       v=($map)
-      ip=${v[4]}
+      ip=${v[3]}
       hostname=$(nslookup ${ip} | grep name | sed "s/^.*name = \(.*\)$/\1/")
       if [ "${hostname}" = "" ]; then
         hostname=${ip}
       fi
-      echo ${v[0]} [\"${v[0]}/${v[1]}\",\"${hostname}\",\"${v[2]}\",\"${v[3]}\"]
+      echo ${v[0]} [\"${v[0]}/${v[1]}\",\"${hostname}\",\"${v[2]}\",\"${v[4]}\"]
     fi
   done > /tmp/inactive.entries
   echo [$(cat /tmp/active.entries | sort -g | sed "s/^[ 0-9]* //" | paste -s -d",")] > /tmp/active.display
