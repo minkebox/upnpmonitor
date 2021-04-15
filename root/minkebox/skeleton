@@ -54,12 +54,14 @@
     {
       type: `File`,
       name: `/tmp/active.display`,
-      style: 'boot'
+      style: 'boot',
+      readonly: true
     },
     {
       type: `File`,
       name: `/tmp/inactive.display`,
-      style: 'boot'
+      style: 'boot',
+      readonly: true
     },
     {
       type: `Network`,
