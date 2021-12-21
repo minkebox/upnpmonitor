@@ -2,7 +2,7 @@
 
 touch /tmp/alltime /tmp/active
 update() {
-  raw="$(upnpc -L | grep -E '(UDP|TCP)')"
+  raw="$(upnpc -l | grep -E '(UDP|TCP)')"
   cp /dev/null /tmp/active
   if [ "${raw}" != "" ]; then
     echo "${raw}" | while read map; do
